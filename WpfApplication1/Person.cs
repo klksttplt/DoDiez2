@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO.Packaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
+
 
 namespace lab1wpf
 {
@@ -21,15 +19,17 @@ namespace lab1wpf
         public readonly string name;
         public readonly string surname;
         public readonly string email;
-        private int age;
 
+
+        private int age;
 
         public Person(string name, string surname, DateTime birth, string email)
         {
             this.name = name;
             this.surname = surname;
             this.email = email;
-            AddBirth(birth);
+            this.birth = birth;
+
             CalculateChineseSign();
             CalculateWesternSign();
             age = CalculateYears();
@@ -45,9 +45,6 @@ namespace lab1wpf
             this.name = name;
             this.surname = surname;
             this.email = email;
-            CalculateChineseSign();
-            CalculateWesternSign();
-            age = CalculateYears();
         }
 
         public Person(string name, string surname, DateTime birth)
@@ -59,7 +56,6 @@ namespace lab1wpf
             CalculateWesternSign();
             age = CalculateYears();
         }
-
 
         private void AddBirth(DateTime birth)
         {
@@ -73,6 +69,7 @@ namespace lab1wpf
                 return DateTime.Today.Year - birth.Year - 1;
             else return DateTime.Today.Year - birth.Year;
         }
+
 
         private void CalculateWesternSign()
         {
@@ -90,6 +87,7 @@ namespace lab1wpf
             if (birth.Day >= 20 && birth.Month == 1 || birth.Day <= 18 && birth.Month == 2) westernSign = "Aquaris";
             if (birth.Day >= 19 && birth.Month == 2 || birth.Day <= 20 && birth.Month == 3) westernSign = "Pisces";
         }
+
 
         private void CalculateChineseSign()
         {
